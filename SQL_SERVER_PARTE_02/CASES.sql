@@ -1,0 +1,45 @@
+SELECT [NOME DO PRODUTO],
+	CASE 
+		WHEN [PREÇO DE LISTA] >= 12 THEN 'PRODUTO CARO'
+		WHEN [PREÇO DE LISTA] >= 7 AND [PREÇO DE LISTA] < 12 THEN 'PRODUTO EM CONTA'
+		ELSE 'PRODUTO BARATO'
+		END
+FROM [TABELA DE PRODUTOS]
+
+
+SELECT [NOME DO PRODUTO],
+	CASE
+		WHEN [PREÇO DE LISTA] >= 12 THEN 'PRODUTO CARO'
+		WHEN [PREÇO DE LISTA] >= 7 AND [PREÇO DE LISTA] < 12 THEN 'PRODUTO EM CONTA'
+		ELSE 'PRODUTO BARATO'
+	END,
+	AVG([PREÇO DE LISTA])
+FROM [TABELA DE PRODUTOS] GROUP BY [NOME DO PRODUTO],
+	CASE
+		WHEN [PREÇO DE LISTA] >= 12 THEN 'PRODUTO CARO'
+		WHEN [PREÇO DE LISTA] >= 7 AND [PREÇO DE LISTA] < 12 THEN 'PRODUTO EM CONTA'
+		ELSE 'PRODUTO BARATO'
+	END
+	   	  
+
+SELECT YEAR(DATA), COUNT(*) FROM [NOTAS FISCAIS] GROUP BY YEAR(DATA)
+
+-- EXERCICIO: Veja o ano de nascimento dos clientes e classifique-os como: 
+--nascidos antes de 1990 são adultos, nascidos entre 1990 e 1995 são jovens 
+--e nascidos depois de 1995 são crianças. Liste o nome do cliente e esta classificação.
+
+SELECT [DATA DE NASCIMENTO],
+	 CASE
+		WHEN YEAR([DATA DE NASCIMENTO]) <  1990 THEN 'ADULTOS'
+		WHEN YEAR([DATA DE NASCIMENTO]) >= 1990 AND YEAR([DATA DE NASCIMENTO]) <= 1995 THEN 'JOVENS'
+		ELSE 'CRIANÇAS'
+	END
+FROM [TABELA DE CLIENTES]
+
+-- SOLUÇÃO DO PROFESSOR
+select [NOME],
+case 
+    when year([DATA DE NASCIMENTO]) < 1990 then 'Adulto'
+    when year([DATA DE NASCIMENTO]) between 1990 and 1995 then 'Jovem'
+    else 'Criança' end as [Classificação Etária]
+ from [TABELA DE CLIENTES]
